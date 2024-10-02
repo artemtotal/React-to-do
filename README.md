@@ -1,5 +1,4 @@
-
-![](./Bilder/Bild.png)
+![](./Bilder/Bilder.png)
 
 # Full Stack To-Do List Application
 
@@ -78,5 +77,8 @@ npm test
 
 - Create, edit, and delete tasks
 - UI with Toastify notifications
-- Detailed logging in the backend with Winston
+
+## Documentation
+
+The API documentation is available at the following link: [Postman Documentation](https://documenter.getpostman.com/view/37301523/2sAXxLAZSH#99c3348e-1193-45d2-9e26-11766653c5c9)
 
