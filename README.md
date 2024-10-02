@@ -11,8 +11,7 @@ This is a full-stack To-Do list application developed with React for the fronten
 - [Testing](#testing)
 - [Features](#features)
 - [Documentation](#documentation)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Technologies
 
