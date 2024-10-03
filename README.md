@@ -1,6 +1,3 @@
-Hier ist eine angepasste README für deine Full-Stack To-Do List Anwendung, die die neuesten Änderungen und Merkmale widerspiegelt, einschließlich der Integration von Prometheus und der k6 Lasttests:
-
----
 
 ![](./Bilder/Bild.png)
 
