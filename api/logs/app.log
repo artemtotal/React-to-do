@@ -399,3 +399,115 @@
 2024-10-02 20:48:53 [info]: Todos erfolgreich abgerufen
 2024-10-02 20:48:53 [info]: Incoming request: GET /todos
 2024-10-02 20:48:53 [info]: Todos erfolgreich abgerufen
+2024-10-03 22:31:37 [info]: This is an info message
+2024-10-03 22:31:37 [warn]: This is a warning message
+2024-10-03 22:31:37 [error]: This is an error message
+2024-10-03 22:31:37 [info]: Datenbank wird initialisiert
+2024-10-03 22:31:37 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:31:37 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:31:37 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:31:40 [info]: This is an info message
+2024-10-03 22:31:40 [warn]: This is a warning message
+2024-10-03 22:31:40 [error]: This is an error message
+2024-10-03 22:31:40 [info]: Datenbank wird initialisiert
+2024-10-03 22:31:40 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:31:40 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:31:40 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:31:45 [info]: Incoming request: GET /
+2024-10-03 22:31:45 [info]: Hello World Route aufgerufen
+2024-10-03 22:31:45 [info]: Response time: 0.006s
+2024-10-03 22:31:45 [info]: Incoming request: GET /metrics
+2024-10-03 22:31:45 [info]: Response time: 0.005s
+2024-10-03 22:32:07 [info]: This is an info message
+2024-10-03 22:32:07 [warn]: This is a warning message
+2024-10-03 22:32:07 [error]: This is an error message
+2024-10-03 22:32:07 [info]: Datenbank wird initialisiert
+2024-10-03 22:32:08 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:32:08 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:32:08 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:34:45 [info]: Incoming request: GET /todos
+2024-10-03 22:34:45 [info]: Response time: 0.003s
+2024-10-03 22:34:45 [info]: Incoming request: GET /todos
+2024-10-03 22:34:45 [info]: Response time: 0s
+2024-10-03 22:35:04 [info]: Incoming request: GET /todos
+2024-10-03 22:35:04 [info]: Response time: 0.002s
+2024-10-03 22:35:04 [info]: Incoming request: GET /todos
+2024-10-03 22:35:04 [info]: Response time: 0.002s
+2024-10-03 22:35:12 [info]: Incoming request: GET /todos
+2024-10-03 22:35:12 [info]: Response time: 0.002s
+2024-10-03 22:35:12 [info]: Incoming request: GET /todos
+2024-10-03 22:35:12 [info]: Response time: 0.002s
+2024-10-03 22:36:01 [info]: Incoming request: GET /
+2024-10-03 22:36:01 [info]: Hello World Route aufgerufen
+2024-10-03 22:36:01 [info]: Response time: 0.003s
+2024-10-03 22:36:05 [info]: Incoming request: GET /todos
+2024-10-03 22:36:05 [info]: Response time: 0s
+2024-10-03 22:36:05 [info]: Incoming request: GET /todos
+2024-10-03 22:36:05 [info]: Response time: 0.001s
+2024-10-03 22:36:16 [info]: Incoming request: GET /todos
+2024-10-03 22:36:16 [info]: Response time: 0.001s
+2024-10-03 22:36:16 [info]: Incoming request: GET /todos
+2024-10-03 22:36:16 [info]: Response time: 0s
+2024-10-03 22:36:59 [info]: Incoming request: GET /todos
+2024-10-03 22:36:59 [info]: Response time: 0.001s
+2024-10-03 22:36:59 [info]: Incoming request: GET /todos
+2024-10-03 22:36:59 [info]: Response time: 0s
+2024-10-03 22:37:19 [info]: Incoming request: GET /todos
+2024-10-03 22:37:19 [info]: Response time: 0s
+2024-10-03 22:37:19 [info]: Incoming request: GET /todos
+2024-10-03 22:37:19 [info]: Response time: 0s
+2024-10-03 22:38:30 [info]: Incoming request: GET /todos
+2024-10-03 22:38:30 [info]: Response time: 0.001s
+2024-10-03 22:38:30 [info]: Incoming request: GET /todos
+2024-10-03 22:38:30 [info]: Response time: 0s
+2024-10-03 22:38:47 [info]: Incoming request: GET /todos
+2024-10-03 22:38:47 [info]: Response time: 0.001s
+2024-10-03 22:38:47 [info]: Incoming request: GET /todos
+2024-10-03 22:38:47 [info]: Response time: 0.001s
+2024-10-03 22:41:39 [info]: This is an info message
+2024-10-03 22:41:39 [warn]: This is a warning message
+2024-10-03 22:41:39 [error]: This is an error message
+2024-10-03 22:41:39 [info]: Datenbank wird initialisiert
+2024-10-03 22:41:39 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:41:39 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:41:39 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:41:45 [info]: Incoming request: GET /todos
+2024-10-03 22:41:45 [info]: Incoming request: GET /todos
+2024-10-03 22:41:45 [info]: Todos erfolgreich abgerufen
+2024-10-03 22:41:45 [info]: Response time: 0.01s
+2024-10-03 22:41:45 [info]: Todos erfolgreich abgerufen
+2024-10-03 22:41:45 [info]: Response time: 0.009s
+2024-10-03 22:43:47 [info]: This is an info message
+2024-10-03 22:43:47 [warn]: This is a warning message
+2024-10-03 22:43:47 [error]: This is an error message
+2024-10-03 22:43:47 [info]: Datenbank wird initialisiert
+2024-10-03 22:43:47 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:43:47 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:43:47 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:44:08 [info]: This is an info message
+2024-10-03 22:44:08 [warn]: This is a warning message
+2024-10-03 22:44:08 [error]: This is an error message
+2024-10-03 22:44:08 [info]: Datenbank wird initialisiert
+2024-10-03 22:44:08 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:44:08 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:44:08 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:45:24 [info]: This is an info message
+2024-10-03 22:45:24 [warn]: This is a warning message
+2024-10-03 22:45:24 [error]: This is an error message
+2024-10-03 22:45:24 [info]: Datenbank wird initialisiert
+2024-10-03 22:45:24 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:45:24 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:45:24 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:46:45 [info]: This is an info message
+2024-10-03 22:46:45 [warn]: This is a warning message
+2024-10-03 22:46:45 [error]: This is an error message
+2024-10-03 22:46:45 [info]: Datenbank wird initialisiert
+2024-10-03 22:46:45 [info]: Server läuft auf http://localhost:5001
+2024-10-03 22:46:45 [info]: Tabelle todos erfolgreich erstellt
+2024-10-03 22:46:45 [info]: Testdaten erfolgreich eingefügt
+2024-10-03 22:47:16 [info]: Incoming request: DELETE /todos/1
+2024-10-03 22:47:16 [info]: Todo mit ID 1 erfolgreich gelöscht
+2024-10-03 22:47:16 [info]: Response time: 0.004s
+2024-10-03 22:47:16 [info]: Incoming request: GET /todos
+2024-10-03 22:47:16 [info]: Todos erfolgreich abgerufen
+2024-10-03 22:47:16 [info]: Response time: 0.002s

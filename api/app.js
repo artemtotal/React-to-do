@@ -99,7 +99,11 @@ const port = 5000;
 
 app.use(express.json());
 app.use(cors());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger UI bereitstellen
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+    swaggerOptions: {
+        supportedSubmitMethods: [] 
+    }// Swagger UI bereitstellen
+}));
 
 // Middleware zur Protokollierung und Metrik-Erfassung
 app.use((req, res, next) => {
@@ -124,6 +128,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// SQL-Queries definieren
+const selectQuery = `SELECT * FROM todos`;
+const insertQuery = `INSERT INTO todos (text, isComplete) VALUES (?, ?)`;
+const deleteQuery = `DELETE FROM todos WHERE id = ?`;
+const updateQuery = `UPDATE todos SET text = ?, isComplete = ? WHERE id = ?`;
+
+// API-Routen
 // API-Routen
 /**
  * @swagger
@@ -286,6 +297,7 @@ app.put('/todos/:id', (req, res) => {
         }
     });
 });
+
 
 // Endpunkt für Prometheus-Metriken
 app.get('/metrics', async (req, res) => {
