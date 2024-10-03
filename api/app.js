@@ -27,6 +27,12 @@ const responseTimeHistogram = new Histogram({
     registers: [registry],
 });
 
+// Funktion zur einheitlichen Fehlerbehandlung
+function handleError(res, statusCode, message) {
+    logger.error(message);
+    return res.status(statusCode).send({ error: message });
+}
+
 // Erstelle die Tabelle und füge Testdaten ein
 db.serialize(() => {
     logger.info('Datenbank wird initialisiert');
@@ -47,7 +53,7 @@ db.serialize(() => {
 
     const insertTestData = `INSERT INTO todos (text, isComplete) VALUES
         ('Python auffrischen', 0),
-        ('JavaScript ueben', 0),
+        ('JavaScript üben', 0),
         ('React lernen', 0)`;
 
     db.run(insertTestData, (err) => {
@@ -85,6 +91,11 @@ app.use((req, res, next) => {
         // Metriken aktualisieren
         apiRequestsCounter.inc({ method: req.method, path: req.url });
         responseTimeHistogram.observe({ method: req.method, path: req.url }, responseTime);
+        
+        // Alert für lange Antwortzeiten
+        if (responseTime > 2) {
+            logger.warn(`Hohe Antwortzeit: ${responseTime}s für ${req.method} ${req.url}`);
+        }
     });
 
     next();
@@ -101,8 +112,7 @@ const selectQuery = `SELECT * FROM todos`;
 app.get('/todos', (req, res) => {
     db.all(selectQuery, (err, rows) => {
         if (err) {
-            logger.error('Fehler beim Abfragen der Todos', { error: err.message });
-            return res.status(500).send('Internal Server Error');
+            return handleError(res, 500, 'Fehler beim Abfragen der Todos');
         }
         logger.info('Todos erfolgreich abgerufen', { count: rows.length });
         res.json(rows);
@@ -115,14 +125,12 @@ app.post('/todos', (req, res) => {
     const { text, isComplete } = req.body;
 
     if (!text) {
-        logger.warn('Versuch, ein Todo ohne Text zu erstellen', { body: req.body });
-        return res.status(400).send("Todo text cannot be empty");
+        return handleError(res, 400, "Todo text cannot be empty");
     }
 
     db.run(insertQuery, [text, isComplete], function(err) {
         if (err) {
-            logger.error('Fehler beim Erstellen eines neuen Todos', { error: err.message, body: req.body });
-            return res.status(500).send('Internal Server Error');
+            return handleError(res, 500, 'Fehler beim Erstellen eines neuen Todos');
         }
         logger.info('Neues Todo erfolgreich erstellt', { todoId: this.lastID, text });
         res.status(201).send('Todo created');
@@ -136,14 +144,12 @@ app.delete('/todos/:id', (req, res) => {
 
     db.run(deleteQuery, [id], function(err) {
         if (err) {
-            logger.error(`Fehler beim Löschen des Todos mit ID ${id}`, { error: err.message });
-            return res.status(500).send('Internal Server Error');
+            return handleError(res, 500, `Fehler beim Löschen des Todos mit ID ${id}`);
         } else if (this.changes > 0) {
             logger.info(`Todo mit ID ${id} erfolgreich gelöscht`);
             res.status(200).send('Todo deleted');
         } else {
-            logger.warn(`Todo mit ID ${id} nicht gefunden`);
-            res.status(404).send('Todo not found');
+            return handleError(res, 404, `Todo mit ID ${id} nicht gefunden`);
         }
     });
 });
@@ -155,20 +161,17 @@ app.put('/todos/:id', (req, res) => {
     const { text, isComplete } = req.body;
 
     if (!text) {
-        logger.warn('Versuch, ein Todo ohne Text zu aktualisieren', { body: req.body });
-        return res.status(400).send("Todo text cannot be empty");
+        return handleError(res, 400, "Todo text cannot be empty");
     }
 
     db.run(updateQuery, [text, isComplete, id], function(err) {
         if (err) {
-            logger.error(`Fehler beim Aktualisieren des Todos mit ID ${id}`, { error: err.message, body: req.body });
-            return res.status(500).send('Internal Server Error');
+            return handleError(res, 500, `Fehler beim Aktualisieren des Todos mit ID ${id}`);
         } else if (this.changes > 0) {
             logger.info(`Todo mit ID ${id} erfolgreich aktualisiert`, { text, isComplete });
             res.status(200).send('Todo updated');
         } else {
-            logger.warn(`Todo mit ID ${id} nicht gefunden`);
-            res.status(404).send('Todo not found');
+            return handleError(res, 404, `Todo mit ID ${id} nicht gefunden`);
         }
     });
 });
