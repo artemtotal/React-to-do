@@ -3,6 +3,8 @@ const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const { collectDefaultMetrics, Registry, Counter, Histogram } = require('prom-client');
 const logger = require('./logger'); // Winston-Logger importieren
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 // Initialisiere die Datenbank
 const db = new sqlite3.Database(':memory:');
@@ -71,12 +73,33 @@ process.on('exit', () => {
     db.close();
 });
 
+// Swagger-Dokumentation konfigurieren
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Todo API',
+            version: '1.0.0',
+            description: 'Eine API zum Verwalten von Todos',
+        },
+        servers: [
+            {
+                url: 'http://localhost:5000',
+            },
+        ],
+    },
+    apis: ['./app.js'], 
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 // Express-Anwendung einrichten
 const app = express();
 const port = 5000;
 
 app.use(express.json());
 app.use(cors());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger UI bereitstellen
 
 // Middleware zur Protokollierung und Metrik-Erfassung
 app.use((req, res, next) => {
@@ -102,13 +125,30 @@ app.use((req, res, next) => {
 });
 
 // API-Routen
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: "Hello World"
+ *     description: "Gibt 'Hello World' zurück."
+ *     responses:
+ *       200:
+ *         description: "Erfolgreiche Antwort"
+ */
 app.get('/', (req, res) => {
     logger.info('Hello World Route aufgerufen');
     res.send("Hello World");
 });
 
-const selectQuery = `SELECT * FROM todos`;
-
+/**
+ * @swagger
+ * /todos:
+ *   get:
+ *     summary: "Alle Todos abrufen"
+ *     responses:
+ *       200:
+ *         description: "Eine Liste von Todos"
+ */
 app.get('/todos', (req, res) => {
     db.all(selectQuery, (err, rows) => {
         if (err) {
@@ -119,8 +159,30 @@ app.get('/todos', (req, res) => {
     });
 });
 
-const insertQuery = `INSERT INTO todos (text, isComplete) VALUES (?, ?)`;
-
+/**
+ * @swagger
+ * /todos:
+ *   post:
+ *     summary: "Neues Todo erstellen"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *               isComplete:
+ *                 type: boolean
+ *     responses:
+ *       201:
+ *         description: "Todo erfolgreich erstellt"
+ *       400:
+ *         description: "Ungültige Anfrage"
+ *       500:
+ *         description: "Fehler beim Erstellen des Todos"
+ */
 app.post('/todos', (req, res) => {
     const { text, isComplete } = req.body;
 
@@ -137,8 +199,26 @@ app.post('/todos', (req, res) => {
     });
 });
 
-const deleteQuery = `DELETE FROM todos WHERE id = ?`;
-
+/**
+ * @swagger
+ * /todos/{id}:
+ *   delete:
+ *     summary: "Ein Todo löschen"
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: "ID des zu löschenden Todos"
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: "Todo erfolgreich gelöscht"
+ *       404:
+ *         description: "Todo nicht gefunden"
+ *       500:
+ *         description: "Fehler beim Löschen des Todos"
+ */
 app.delete('/todos/:id', (req, res) => {
     const { id } = req.params;
 
@@ -154,8 +234,39 @@ app.delete('/todos/:id', (req, res) => {
     });
 });
 
-const updateQuery = `UPDATE todos SET text = ?, isComplete = ? WHERE id = ?`;
-
+/**
+ * @swagger
+ * /todos/{id}:
+ *   put:
+ *     summary: "Ein Todo aktualisieren"
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: "ID des zu aktualisierenden Todos"
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               text:
+ *                 type: string
+ *               isComplete:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: "Todo erfolgreich aktualisiert"
+ *       404:
+ *         description: "Todo nicht gefunden"
+ *       400:
+ *         description: "Ungültige Anfrage"
+ *       500:
+ *         description: "Fehler beim Aktualisieren des Todos"
+ */
 app.put('/todos/:id', (req, res) => {
     const { id } = req.params;
     const { text, isComplete } = req.body;
