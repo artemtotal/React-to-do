@@ -1,6 +1,8 @@
+const { collectDefaultMetrics, Registry, Counter, Histogram } = require('prom-client');
+
 // Initialisiere die Metriken
 const registry = new Registry();
-collectDefaultMetrics({ register: registry });
+//collectDefaultMetrics({ register: registry });
 
 // Zähler für die Anzahl der API-Anfragen
 const apiRequestsCounter = new Counter({
@@ -17,3 +19,9 @@ const responseTimeHistogram = new Histogram({
     labelNames: ['method', 'path'],
     registers: [registry],
 });
+
+module.exports = {
+    apiRequestsCounter,
+    responseTimeHistogram,
+    registry
+};
