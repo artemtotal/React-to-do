@@ -1,7 +1,7 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
-
+const { apiRequestsCounter, responseTimeHistogram, registry } = require('./metrics'); 
 const logger = require('./logger'); // Winston-Logger importieren
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
