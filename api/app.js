@@ -9,7 +9,6 @@ const swaggerUi = require('swagger-ui-express');
 // Initialisiere die Datenbank
 const db = new sqlite3.Database(':memory:');
 
-
 // Funktion zur einheitlichen Fehlerbehandlung
 function handleError(res, statusCode, message) {
     logger.error(message);
@@ -68,8 +67,35 @@ const swaggerOptions = {
                 url: 'http://localhost:5000',
             },
         ],
+        components: {
+            schemas: {
+                Todo: {
+                    type: 'object',
+                    required: ['id', 'text', 'isComplete'],
+                    properties: {
+                        id: {
+                            type: 'integer',
+                            description: 'Die ID des Todos',
+                        },
+                        text: {
+                            type: 'string',
+                            description: 'Der Text des Todos',
+                        },
+                        isComplete: {
+                            type: 'boolean',
+                            description: 'Status, ob das Todo abgeschlossen ist',
+                        },
+                    },
+                    example: {
+                        id: 1,
+                        text: 'JavaScript üben',
+                        isComplete: false,
+                    },
+                },
+            },
+        },
     },
-    apis: ['./app.js'], 
+    apis: ['./app.js'],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
@@ -80,11 +106,7 @@ const port = 5000;
 
 app.use(express.json());
 app.use(cors());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
-    swaggerOptions: {
-        supportedSubmitMethods: [] 
-    }// Swagger UI bereitstellen
-}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Middleware zur Protokollierung und Metrik-Erfassung
 app.use((req, res, next) => {
@@ -115,7 +137,6 @@ const insertQuery = `INSERT INTO todos (text, isComplete) VALUES (?, ?)`;
 const deleteQuery = `DELETE FROM todos WHERE id = ?`;
 const updateQuery = `UPDATE todos SET text = ?, isComplete = ? WHERE id = ?`;
 
-// API-Routen
 // API-Routen
 /**
  * @swagger
@@ -161,12 +182,7 @@ app.get('/todos', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               text:
- *                 type: string
- *               isComplete:
- *                 type: boolean
+ *             $ref: '#/components/schemas/Todo'
  *     responses:
  *       201:
  *         description: "Todo erfolgreich erstellt"
@@ -243,12 +259,7 @@ app.delete('/todos/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               text:
- *                 type: string
- *               isComplete:
- *                 type: boolean
+ *             $ref: '#/components/schemas/Todo'
  *     responses:
  *       200:
  *         description: "Todo erfolgreich aktualisiert"
@@ -278,7 +289,6 @@ app.put('/todos/:id', (req, res) => {
         }
     });
 });
-
 
 // Endpunkt für Prometheus-Metriken
 app.get('/metrics', async (req, res) => {
