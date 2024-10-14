@@ -40,19 +40,31 @@ function TodoItem({ todo, onDelete, onUpdate }) {
 
   return (
     <div className="todo">
-      <input type="checkbox" checked={todo.isComplete} onChange={handleToggleDone} />
+      <label className="custom-checkbox-container">
+        <input 
+          type="checkbox" 
+          checked={todo.isComplete} 
+          onChange={handleToggleDone}
+        />
+        <span className="custom-checkbox"></span>
+      </label>
+      
       {isEditing ? (
-        <input type="text" value={updatedText} onChange={(e) => setUpdatedText(e.target.value)} />
+        <input 
+          type="text" 
+          value={updatedText} 
+          onChange={(e) => setUpdatedText(e.target.value)} 
+        />
       ) : (
         <span className={todoStrikeClass}>{todo.text}</span>
       )}
 
       <div className="todo-btns">
         <button onClick={handleUpdate}>{updateButtonText}</button>
-        <button onClick={handleDelete}>Delete</button>
+        <button onClick={() => handleDelete(todo)}>Delete</button>
       </div>
-
     </div>
   )
 }
+
 export default TodoItem;
