@@ -96,7 +96,7 @@ function TodoList() {
         <TodoInput addTodo={addTodo} />
         <h2>Todo List</h2>
         <div className="todos">
-          {todos.map => (
+          {todos.map(todo => (
             <TodoItem
               key={todo.id}
               todo={todo}
